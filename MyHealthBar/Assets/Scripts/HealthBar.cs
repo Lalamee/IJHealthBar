@@ -19,7 +19,8 @@ public class HealthBar : MonoBehaviour
 
     public void ControlCoroutine()
     {
-        _changeValueSlider = StartCoroutine(ChangeValueSlider());
+        if((_slider.value < _playerHealth.TempHealth && _slider.value != _slider.maxValue) || (_slider.value > _playerHealth.TempHealth && _slider.value != _slider.minValue))
+            _changeValueSlider = StartCoroutine(ChangeValueSlider());
     }
 
     private IEnumerator ChangeValueSlider()
