@@ -20,13 +20,17 @@ public class PlayerHealth : MonoBehaviour
     
     public void Cure()
     {
-        if(TempHealth < _maxHealth)
+        if (TempHealth >= _maxHealth)
+            TempHealth = _maxHealth;
+        else
             ChangeHealth(_delta);
     }
     
     public void TakeDamage()
     {
-        if(TempHealth > _minHealth)
+        if(TempHealth <= _minHealth)
+            TempHealth = _minHealth;
+        else
             ChangeHealth(-_delta);
     }
 }
