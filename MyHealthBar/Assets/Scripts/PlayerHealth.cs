@@ -10,22 +10,27 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float _minHealth;
     [SerializeField] private float _delta;
 
-    private float _tempHealth;
+    public float TempHealth { get; private set; }
 
-    private void Start()
+    private void Awake()
     {
-        _tempHealth = _maxHealth / 2;
+        TempHealth = _maxHealth / 2;
     }
 
-    public float Cure()
+    private void ChangeHealth(float delta)
     {
-        _tempHealth = Mathf.Clamp(_tempHealth + _delta, _minHealth, _maxHealth);
-
-        return _tempHealth;
+        TempHealth += delta;
+    }
+    
+    public void Cure()
+    {
+        if(TempHealth < _maxHealth)
+            ChangeHealth(_delta);
     }
     
     public void TakeDamage()
     {
-        _tempHealth = Mathf.Clamp(_tempHealth + _delta, _minHealth, _maxHealth);  
+        if(TempHealth > _minHealth)
+            ChangeHealth(-_delta);
     }
 }
